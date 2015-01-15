@@ -23,9 +23,6 @@ my $plugin = __PACKAGE__->new({
     'description' => '<__trans phrase="Add two-factor authentication to your Movable Type.">',
     'doc_link' => 'http://www.skyarc.co.jp/',
     'l10n_class' => $MYNAME.'::L10N',
-    'settings' => new MT::PluginSettings([
-        ["enable_two_factor_auth", {"default" => "", "scope" => "system"}]
-    ]),
     'schema_version' => $SCHEMA_VERSION,
     'registry' => {
         'object_types' => {
