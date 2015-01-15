@@ -47,12 +47,10 @@ sub _is_mode_save { return shift->param("__mode") eq "save"; }
 sub _post_save {
     my ($cb, $app, $author) = @_;
     return if (not _is_type_author($app) or not _is_mode_save($app));
-    my $model = MT::TwoFactorAuthGoogle::Settings->load({author_id => $app->param("id")});
+    my $model = MT::TwoFactorAuthGoogle::Settings->load({author_id => $author->id});
     $model = MT::TwoFactorAuthGoogle::Settings->new() if (not $model);
-    $model->author_id($app->param("id"));
-    if (not $model->enable_twofactorauth()) {
-        $model->secret(_genRandom(8));
-    }
+    $model->author_id($author->id);
+    $model->secret(_genRandom(8)) if (not $model->enable_twofactorauth());
     $model->enable_twofactorauth(($app->param("enable_twofactorauth") eq "true" ? 1: 0));
     $model->save() or die($model->errstr);
 }
