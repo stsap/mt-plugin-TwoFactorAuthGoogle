@@ -157,6 +157,9 @@ sub _post_signin {
     
     my $auth = Auth::GoogleAuthenticator->new(secret => $model->secret());
     return if ($auth->totp() eq $app->param("otp"));
+
+    ## @MEMO: ワンタイムパスワード入力間違いの場合に何故かログインフォームにhiddenで入力値が引き継がれるので。
+    delete($app->{"query"}->{"param"}->{"otp"});
     $app->logout();
 }
 
