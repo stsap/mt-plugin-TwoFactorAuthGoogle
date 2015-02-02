@@ -126,9 +126,6 @@ HTML
 sub _tmpl_source_login {
     my ($cb, $app, $tmpl) = @_;
     my $plugin = $app->component("TwoFactorAuthGoogle");
-    my $config = {};
-#    $plugin->load_config($config, 'system');
-#    return if (not $config->{"enable_two_factor_auth"});
 
     my $add = $plugin->translate_templatized(<<'HTML');
 <mtapp:setting
